@@ -67,12 +67,18 @@ class Curso {
   }
 }
 
+let estudiantes = [];
+let cursos = [
+  new Curso("Sistemas y Metodos", "17/07/22"),
+  new Curso("Introduccion a la programacion", "20/07/22"),
+];
+
 function crearEstudiante() {
   const nombre = prompt("Ingrese nombre del estudiante:");
   const apellido = prompt("Ingrese apellido del estudiante:");
   const id = prompt("Ingrese DNI del estudiante:");
 
-  return new Estudiante(nombre, apellido, id);
+  estudiantes.push(new Estudiante(nombre, apellido, id));
 }
 
 function crearCurso() {
@@ -82,6 +88,10 @@ function crearCurso() {
 
   return new Curso(nombre, fechaInicio, vacantes);
 }
+
+function listarAlumnos() {}
+
+//POR CADA CASE UNA FUNCION. UNA VES HECHAS LAS FUNCIONES, BORRAR CASE.
 
 /** 
   * Programa que emula un sistema para registrar alumnos y cursos.
@@ -101,11 +111,6 @@ function crearCurso() {
 **/
 
 function main() {
-  let estudiantes = [];
-  let cursos = [
-    new Curso("Sistemas y Metodos", "17/07/22"),
-    new Curso("Introduccion a la programacion", "20/07/22"),
-  ];
   let accion;
   let operacion;
 
@@ -119,7 +124,7 @@ function main() {
     switch (accion) {
       case ACCIONES.CrearEstudiante:
         estudiante = crearEstudiante();
-        estudiantes.push(estudiante);
+
         break;
 
       case ACCIONES.CrearCurso:
@@ -187,5 +192,3 @@ function main() {
     }
   }
 }
-
-main();
