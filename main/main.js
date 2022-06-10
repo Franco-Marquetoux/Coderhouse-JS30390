@@ -67,10 +67,12 @@ class Curso {
   }
 }
 
-let estudiantes = [];
+// let estudiantes = [new Estudiante("Lichu", "Lucatti", "123")];
+
 let cursos = [
   new Curso("Sistemas y Metodos", "17/07/22"),
   new Curso("Introduccion a la programacion", "20/07/22"),
+  new Curso("POO", "12/12/12"),
 ];
 
 function crearEstudiante() {
@@ -86,109 +88,88 @@ function crearCurso() {
   const fechaInicio = prompt("Ingrese fecha de inicio:");
   const vacantes = prompt("Ingrese cantidad de vacantes:");
 
-  return new Curso(nombre, fechaInicio, vacantes);
+  cursos.push(new Curso(nombre, fechaInicio, vacantes));
 }
 
-function listarAlumnos() {}
+function listadoEstudiantes() {
+  const nombresFormateados = estudiantes
+    .map((s) => s.nombreCompleto())
+    .join("\n");
+  alert(`Lista de alumnos: \n ${nombresFormateados}`);
+}
 
-//POR CADA CASE UNA FUNCION. UNA VES HECHAS LAS FUNCIONES, BORRAR CASE.
+function listadoCursos() {
+  const cursosFormateados = cursos
+    .map(
+      (c) =>
+        `📎 ${c.nombre} - ${c.fechaInicio} (${c.estudiantes.length}/${c.vacantes} estudiantes)`
+    )
+    .join("\n");
+  alert(`Lista de cursos:\n ${cursosFormateados}`);
+}
 
-/** 
-  * Programa que emula un sistema para registrar alumnos y cursos.
+function eliminarEstudiante() {
+  const estudianteId = prompt("DNI del alumno a eliminar:");
+  estudiantes = estudiantes.filter((s) => s.id !== estudianteId);
+}
 
-  Acciones:
-    1. Crear alumno (nombre, apellido)
-    2. Crear cursos
-    3. Listar alumnos
-    4. Listar cursos
-    5. Eliminar alumno
-    6. Eliminar curso
-    7. Agregar Alumno a un curso
-    8. Mostrar detalles de un curso
-    9. Mostrar itinerario
-    12. Mostrar ficha alumno
-    0. Salir
-**/
+function eliminarCurso() {
+  const nombre = prompt("Nombre del curso a eliminar:");
+  cursos = cursos.filter(
+    (s) => s.nombre.toLowerCase() !== nombre.toLowerCase()
+  );
+}
 
-function main() {
-  let accion;
-  let operacion;
+function agregarEstudianteACurso() {
+  const estudianteId = prompt("DNI del alumno:");
+  const nombreCurso = prompt("Nombre del curso:");
 
-  while (operacion != 0) {
-    accion = parseInt(prompt(MENU_info));
-
-    let estudianteId;
-    let curso;
-    let estudiante;
-
-    switch (accion) {
-      case ACCIONES.CrearEstudiante:
-        estudiante = crearEstudiante();
-
-        break;
-
-      case ACCIONES.CrearCurso:
-        curso = crearCurso();
-
-        if (cursos.some((c) => c.nombre === curso.nombre)) {
-          alert("Ya existe un curso con ese nombre");
-          break;
-        }
-
-        cursos.push(curso);
-        break;
-
-      case ACCIONES.ListadoEstudiantes:
-        const nombresFormateados = estudiantes
-          .map((s) => s.nombreCompleto())
-          .join("\n");
-        alert(`Lista de alumnos: \n ${nombresFormateados}`);
-        break;
-
-      case ACCIONES.ListadoCursos:
-        const cursosFormateados = cursos
-          .map(
-            (c) =>
-              `📎 ${c.nombre} - ${c.fechaInicio} (${c.estudiantes.length}/${c.vacantes} estudiantes)`
-          )
-          .join("\n");
-        alert(`Lista de cursos:\n ${cursosFormateados}`);
-        break;
-
-      case ACCIONES.BorrarEstudiante:
-        estudianteId = prompt("DNI del alumno a eliminar:");
-        estudiantes = estudiantes.filter((s) => s.id !== estudianteId);
-        break;
-
-      case ACCIONES.BorrarCurso:
-        const nombre = prompt("Nombre del curso a eliminar:");
-        cursos = cursos.filter((s) => s.nombre !== nombre);
-        break;
-
-      case ACCIONES.AgregarEstudianteACurso:
-        estudianteId = prompt("DNI del alumno:");
-        nombreCurso = prompt("Nombre del curso:");
-
-        estudiante = estudiantes.find((s) => s.id === estudianteId);
-        curso = cursos.find((c) => c.nombre === nombreCurso);
-
-        curso.agregarEstudiante(estudiante);
-        break;
-
-      case ACCIONES.MostrarCurso:
-        nombreCurso = prompt("Nombre del curso:");
-        curso = cursos.find((c) => c.nombre === nombreCurso);
-        alert(curso.info());
-        break;
-
-      case ACCIONES.MostrarAgenda:
-        const resultado = cursos.map((c) => c.info());
-        alert(`Itinerario: \n ${resultado.join("\n")}`);
-        break;
-
-      case ACCIONES.Salir:
-        operacion = 0;
-        break;
-    }
+  const estudiante = estudiantes.find((s) => s.id === estudianteId);
+  const curso = cursos.find(
+    (c) => c.nombre.toLowerCase() === nombreCurso.toLowerCase()
+  );
+  if (!curso || !estudiante) {
+    alert("Datos invalidos");
+    return;
   }
+  curso.agregarEstudiante(estudiante);
 }
+
+function mostrarCurso() {
+  const nombreCurso = prompt("Nombre del curso:");
+  const curso = cursos.find(
+    (c) => c.nombre.toLowerCase() === nombreCurso.toLowerCase()
+  );
+  if (!curso) {
+    alert("No se encontro curso");
+    return;
+  }
+  alert(curso.info());
+}
+
+function mostrarAgenda() {
+  const resultado = cursos.map((c) => c.info());
+  alert(`Itinerario: \n ${resultado.join("\n")}`);
+}
+
+function mostrarFichaEstudiante() {
+  const estudianteId = prompt("Ingrese DNI");
+  const estudiante = estudiantes.find((s) => s.id === estudianteId);
+  if (!estudiante) {
+    alert("No se encontro el estudiante");
+    return;
+  }
+  let cursosFicha = cursos
+    .filter((c) => c.estudiantes.some((e) => e.id == estudianteId))
+    .map((c) => c.nombre)
+    .join(",\n");
+
+  alert(`
+    Nombre y Apellido: ${estudiante.nombreCompleto()},
+    DNI: ${estudiante.id}
+    Cursos: ${cursosFicha}
+  `);
+}
+
+//TAREA AGREGAR VALIDACION A TODOS LO FIND (VALIDAR)
+//
