@@ -1,28 +1,21 @@
-body {
-  font-family: "Roboto", sans-serif;
-  font-size: small;
-  margin: 0;
+* {
+  box-sizing: border-box;
 }
 
-.menu {
-  background-color: burlywood;
-  width: 350px;
-  padding: 20px;
-  text-decoration: none;
+h1 {
   display: flex;
-  align-items: flex-start;
-  border-radius: 10px;
-  height: 100vh;
-  flex-direction: column;
+  justify-content: center;
 }
 
-.button {
-  font-size: 20px;
-  padding: 2px;
-  margin: 10px;
+.actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
 }
 
-.lista {
-  text-decoration: none;
-  list-style: none;
+.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 100px;
 }

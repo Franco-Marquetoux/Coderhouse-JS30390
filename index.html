@@ -1,60 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style/index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-    <title>Proyecto Coderhouse Javascript</title>
-</head>
-
-<body>
-    <div class="menu">
-        <h1>Lista de acciones</h1>
-        <ul class="lista">
-            <li class="item-lista">
-                <button class="button" onclick="crearEstudiante()">Crear alumnos</button>
-            </li>
-            <li class="item-lista">
-                <button class="button" onclick="crearCurso()">Crear cursos</button>
-            </li>
-            <li class="item-lista">
-                <button class="button" onclick="listadoEstudiantes()">Listar alumnos</button>
-            </li>
-            <li class="item-lista">
-                <button class="button" onclick="listadoCursos()">Listar cursos</button>
-            </li>
-            <li class="item-lista">
-                <button class="button" onclick="eliminarEstudiante()">Eliminar alumnos</button>
-            </li>
-            <li class="item-lista">
-                <button class="button" onclick="eliminarCurso()">Eliminar cursos</button>
-            </li>
-            <li class="item-lista">
-                <button class="button" onclick="agregarEstudianteACurso()">Agregar alumnos a
-                    cursos</button>
-            </li>
-            <li class="item-lista">
-                <button class="button" onclick="mostrarCurso()">Mostrar detalles de cursos</button>
-
-            </li>
-            <li class="item-lista">
-                <button class="button" onclick="mostrarAgenda()">Mostrar itinerario</button>
-            </li>
-            <li class="item-lista">
-                <button class="button" onclick="mostrarFichaAlumnos()">Mostrar ficha de
-                    alumnos</button>
-            </li>
-        </ul>
-    </div>
-    <script src="/main/main.js"></script>
-</body>
-
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,33 +5,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style/index.css">
     <title>Document</title>
 </head>
 
 <body>
-    <div class="container">
-        <aside class="actions">
-            <ul>
-                <li><button onclick="addStudent()">Add Student</button></li>
-                <li><button onclick="removeStudent()">Remove Student</button></li>
-            </ul>
-        </aside>
-        <main class="content">
+    <main class="container pt-5">
+        <section class="py-3">
             <h1>Students</h1>
-            <table id="studentsTable">
+            <div class="actions mb-3">
+                <button class="btn btn-outline-success ms-3" onclick="addStudent()">Add Student</button>
+                <button class="btn btn-outline-success ms-3" onclick="addStudentToCourse()">Add student to
+                    course</button>
+                <button class="btn btn-outline-danger ms-3" onclick="removeStudent()">Remove Student</button>
+            </div>
+            <table id="studentsTable" class="table">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Fist name</th>
                         <th>Last name</th>
-                        <th>Id</th>
+                        <th>Courses</th>
                     </tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
-        </main>
-    </div>
+        </section>
+        <section class="py-3">
+            <h1>Courses</h1>
+            <div class="actions mb-3">
+                <button class="btn btn-outline-success ms-3" onclick="addCourse()">Add Course</button>
+                <button class="btn btn-outline-danger ms-3" onclick="removeCourse()">Remove Course</button>
+            </div>
+            <table id="coursesTable" class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="/main/utils.js"></script>
+    <script src="/main/students.js"></script>
+    <script src="/main/courses.js"></script>
     <script src="/main/main.js"></script>
 </body>
 
